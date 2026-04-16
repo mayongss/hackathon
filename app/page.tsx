@@ -23,7 +23,8 @@ export default function Home() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}))
-        setError(data.error || 'AI 생성 중 오류가 발생했습니다.')
+        const errorMsg = data.details ? `${data.error} (${data.details})` : (data.error || 'AI 생성 중 오류가 발생했습니다.')
+        setError(errorMsg)
         return
       }
 
