@@ -5,8 +5,9 @@ interface Props {
 }
 
 export default function AdminTips({ tips }: Props) {
-  // Defensive fallback
-  const tipArray = Array.isArray(tips) ? tips : Object.values(tips).flat()
+  // Ensure we have an array of strings to iterate over
+  const tipArray: string[] = Array.isArray(tips) ? tips : []
+
 
   return (
     <div className="bg-indigo-50 rounded-xl p-5 border border-indigo-100">
