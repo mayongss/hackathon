@@ -14,9 +14,28 @@ export async function POST(req: NextRequest) {
     }
 
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
-
     const prompt = buildGeneratePrompt(input)
-    const result_ai = await model.generateContent(prompt)
+    
+    let result_ai;
+    let retries = 3;
+    let delay = 1500;
+    
+    while(true) {
+      try {
+        result_ai = await model.generateContent(prompt);
+        break;
+      } catch (err: any) {
+        // 503 Service Unavailable or 429 Too Many Requests -> Retry
+        if (retries > 0 && err.message && (err.message.includes('503') || err.message.includes('429'))) {
+          retries--;
+          await new Promise(res => setTimeout(res, delay));
+          delay *= 2; // exponential backoff
+        } else {
+          throw err;
+        }
+      }
+    }
+
     const text = result_ai.response.text()
 
     // Sometimes gemini wraps json in markdown codeblock
