@@ -41,11 +41,18 @@ export default function Checklist({ items, onToggle, highlightedId }: Props) {
     return acc
   }, {} as Record<string, Item[]>)
 
-  // Sort items within each category: unchecked first, checked at the bottom
+  // Sort items within each category
+  // 1. Unchecked first, checked at the bottom
+  // 2. Essential first, recommended next
   Object.values(grouped).forEach(catItems => {
     catItems.sort((a, b) => {
-      if (a.checked === b.checked) return 0
-      return a.checked ? 1 : -1
+      if (a.checked !== b.checked) {
+        return a.checked ? 1 : -1
+      }
+      if (a.type !== b.type) {
+        return a.type === 'essential' ? -1 : 1
+      }
+      return 0
     })
   })
 
