@@ -8,23 +8,27 @@ export default function ShareButton() {
 
   async function handleCopy() {
     setIsLoading(true)
+    let linkToCopy = window.location.href
     try {
-      // Create shortlink
-      const res = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(window.location.href)}`)
-      let linkToCopy = window.location.href
-      if (res.ok) {
-        linkToCopy = await res.text()
-      }
+      const res = await fetch('/api/shorten', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: window.location.href })
+      })
       
-      await navigator.clipboard.writeText(linkToCopy)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      if (res.ok) {
+        const data = await res.json()
+        if (data.shortUrl) linkToCopy = data.shortUrl
+      }
     } catch (err) {
-      console.error(err)
-      await navigator.clipboard.writeText(window.location.href)
-    } finally {
-      setIsLoading(false)
+      console.error('Shorten fail:', err)
     }
+
+    // Always copy something and show success
+    await navigator.clipboard.writeText(linkToCopy)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+    setIsLoading(false)
   }
 
   return (
