@@ -8,6 +8,8 @@ interface Props {
   isLoading: boolean
 }
 
+import CountryAutocomplete from './CountryAutocomplete'
+
 export default function TripForm({ onSubmit, isLoading }: Props) {
   const [form, setForm] = useState<TripInput>({
     itinerary: [{ country: '', city: '', startDate: '', endDate: '' }],
@@ -89,11 +91,10 @@ export default function TripForm({ onSubmit, isLoading }: Props) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                   <div>
                     <label className={labelClass}>국가</label>
-                    <input
-                      name="country"
+                    <CountryAutocomplete
                       value={leg.country}
-                      onChange={(e) => handleItineraryChange(index, e)}
-                      placeholder="예: 일본"
+                      onChange={(val) => handleItineraryChange(index, { target: { name: 'country', value: val } } as any)}
+                      placeholder="예: 일본 (초성검색 가능)"
                       required
                       className={inputClass}
                     />
