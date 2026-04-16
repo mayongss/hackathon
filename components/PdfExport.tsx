@@ -17,9 +17,9 @@ export default function PdfExport({ result }: Props) {
       const destination = result.input.itinerary[0]?.city || '여행'
       const filename = `${destination}-체크리스트.pdf`
       await exportToPdf('result-content', filename)
-    } catch (err) {
+    } catch (err: any) {
       console.error(err)
-      alert('PDF 저장 중 오류가 발생했습니다.')
+      alert(`PDF 저장 중 오류가 발생했습니다: ${err.message || err}`)
     } finally {
       setIsExporting(false)
     }
