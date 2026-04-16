@@ -9,8 +9,8 @@ export async function POST(req: NextRequest) {
   try {
     const { input, messages }: { input: TripInput; messages: ChatMessage[] } = await req.json()
 
-    if (!input || !messages) {
-      return NextResponse.json({ error: '필수 데이터가 없습니다.' }, { status: 400 })
+    if (!input || !messages || messages.length === 0) {
+      return NextResponse.json({ error: '잘못된 요청입니다.' }, { status: 400 })
     }
 
     const model = genAI.getGenerativeModel({ 
@@ -21,31 +21,37 @@ export async function POST(req: NextRequest) {
     const chat = model.startChat({
       history: messages.slice(0, -1).map(m => ({
         role: m.role === 'user' ? 'user' : 'model',
-        parts: [{ text: m.content }]
-      }))
+        parts: [{ text: m.content }],
+      })),
     })
 
-    const lastUserMessage = messages[messages.length - 1].content
-    const result = await chat.sendMessage(lastUserMessage)
-    const text = result.response.text()
+    const userMessage = messages[messages.length - 1].content
+    const result = await chat.sendMessage(userMessage)
+    const responseText = result.response.text()
 
-    // Parse suggest item if Gemini outputs [SUGGEST_ITEM: {"type": "recommended", "item": "아이템"}]
-    const suggestMatch = text.match(/\[SUGGEST_ITEM:.*?(\{.*?\})\]/)
+    // Check if the AI suggested an item to add
+    const suggestMatch = responseText.match(/\[SUGGEST_ITEM:\s*({[^}]+})\s*\]/)
     let suggestedItem = null
-    let cleanText = text
-    
-    if (suggestMatch) {
+
+    if (suggestMatch && suggestMatch[1]) {
       try {
         suggestedItem = JSON.parse(suggestMatch[1])
-        cleanText = text.replace(/\[SUGGEST_ITEM:.*?\]/, '').trim()
       } catch (e) {
         console.error('Failed to parse suggested item', e)
       }
     }
 
-    return NextResponse.json({ text: cleanText, suggestedItem })
-  } catch (error) {
-    console.error('Chat API error:', error)
-    return NextResponse.json({ error: '채팅 중 오류가 발생했습니다.' }, { status: 500 })
+    const cleanText = responseText.replace(/\[SUGGEST_ITEM:[^\]]+\]/g, '').trim()
+
+    return NextResponse.json({
+      text: cleanText,
+      suggestedItem,
+    })
+  } catch (error: any) {
+    console.error('Gemini Chat API error:', error)
+    return NextResponse.json({ 
+      error: '채팅 중 오류가 발생했습니다.',
+      details: error?.message || String(error)
+    }, { status: 500 })
   }
 }
