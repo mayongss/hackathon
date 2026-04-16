@@ -3,6 +3,8 @@ import { genAI } from '@/lib/gemini'
 import { buildGeneratePrompt } from '@/lib/prompts'
 import { TripInput, TripResult, ChecklistItem } from '@/types'
 
+export const maxDuration = 60 // Vercel hobby tier timeout prevention
+
 export async function POST(req: NextRequest) {
   try {
     const input: TripInput = await req.json()

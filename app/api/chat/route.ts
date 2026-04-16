@@ -3,6 +3,8 @@ import { genAI } from '@/lib/gemini'
 import { buildSystemPrompt } from '@/lib/prompts'
 import { TripInput, ChatMessage } from '@/types'
 
+export const maxDuration = 60 // Vercel hobby tier timeout prevention
+
 export async function POST(req: NextRequest) {
   try {
     const { input, messages }: { input: TripInput; messages: ChatMessage[] } = await req.json()
