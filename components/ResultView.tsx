@@ -80,9 +80,9 @@ export default function ResultView({ initialResult }: Props) {
           
           <div className="flex flex-col items-end justify-center gap-4 border-t md:border-t-0 md:border-l border-dashed border-gray-300 pt-4 md:pt-0 md:pl-6 w-full md:w-auto">
             {/* Fake Barcode */}
-            <div className="flex items-end gap-[2px] h-12 opacity-40">
-              {[...Array(24)].map((_, i) => (
-                <div key={i} className="bg-slate-800" style={{ width: `${Math.random() * 4 + 1}px`, height: `${Math.random() * 40 + 40}%` }}></div>
+            <div className="hidden md:flex items-end gap-[2px] h-12 opacity-40">
+              {[60, 85, 40, 100, 55, 75, 45, 90, 60, 50, 80, 100, 40, 70, 95, 50, 65, 80, 45, 100, 60, 75, 50, 90].map((h, i) => (
+                <div key={i} className="bg-slate-800" style={{ width: `${(i % 3) + 1.5}px`, height: `${h}%` }}></div>
               ))}
             </div>
             <div className="flex gap-2 print:hidden w-full md:w-auto mt-2">
