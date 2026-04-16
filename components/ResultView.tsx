@@ -46,19 +46,19 @@ export default function ResultView({ initialResult }: Props) {
               </button>
             </div>
             
-            <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight font-title mb-4">
+            <h1 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight font-title mb-4 break-keep">
               {itinerary.map(l => `${l.country} · ${l.city}`).join(', ')}
             </h1>
             
             <div className="flex flex-wrap items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
               {itinerary.map((leg, i) => (
-                <div key={i} className="flex flex-col">
+                <div key={i} className="flex flex-col whitespace-nowrap">
                   <span className="text-[10px] text-slate-400 font-bold uppercase">DESTINATION</span>
                   <span className="text-sm font-bold text-slate-700">{leg.country} {leg.city}</span>
                 </div>
               ))}
               {result.input.theme && (
-                <div className="flex flex-col">
+                <div className="flex flex-col whitespace-nowrap">
                   <span className="text-[10px] text-slate-400 font-bold uppercase">CLASS</span>
                   <span className="text-sm font-bold text-slate-700">{result.input.theme}</span>
                 </div>
