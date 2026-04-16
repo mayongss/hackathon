@@ -112,7 +112,7 @@ export default function TripForm({ onSubmit, isLoading }: Props) {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div>
-                    <label className={labelClass}>도착일</label>
+                    <label className={labelClass}>출발일</label>
                     <input
                       type="date"
                       name="startDate"
@@ -123,7 +123,7 @@ export default function TripForm({ onSubmit, isLoading }: Props) {
                     />
                   </div>
                   <div>
-                    <label className={labelClass}>출발일</label>
+                    <label className={labelClass}>도착일</label>
                     <input
                       type="date"
                       name="endDate"
