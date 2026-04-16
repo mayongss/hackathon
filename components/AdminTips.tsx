@@ -18,7 +18,7 @@ export default function AdminTips({ tips }: Props) {
         {tipArray.slice(0, 5).map((tip, i) => (
           <li key={i} className="flex gap-3 text-[15px] border-b border-indigo-100/60 pb-3 last:border-0 last:pb-0 text-gray-800 leading-relaxed">
             <span className="text-indigo-500 font-bold shrink-0">{i + 1}.</span>
-            <span>{tip}</span>
+            <span>{tip.replace(/^[\*\-\s]+/, '')}</span>
           </li>
         ))}
       </ul>

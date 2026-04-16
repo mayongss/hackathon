@@ -20,7 +20,7 @@ ${input.itinerary.map(leg => `  * ${leg.country} ${leg.city} (${leg.startDate} ~
 ## 출력 형식 (반드시 아래 JSON만 반환, 다른 텍스트 없이)
 
 {
-  "admin_tips": ["행정/금융/디지털 준비사항 팁을 마크다운 불릿 포인트로 작성 (최대 5개 핵심 요약)", "여행지(${destString})에 특화된 필수적이고 크리티컬한 정보만 포함"],
+  "admin_tips": ["행정/금융/디지털 준비사항 팁을 짧고 명확하게 작성 (주의: *나 - 같은 마크다운 기호 절대 사용 금지)", "여행지(${destString})에 특화된 필수적이고 크리티컬한 정보만 포함"],
   "checklist": [
     { "category": "필수 서류", "type": "essential", "item": "여권" },
     { "category": "세면도구", "type": "recommended", "item": "키워드 기반 추천품", "reason": "위트있고 센스있는 이유 (예: '이거 없으면 현지에서 엄청 고생해요', '귀찮아도 이건 챙겨가야 후회 안 함')" }
