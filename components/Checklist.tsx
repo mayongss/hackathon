@@ -1,16 +1,31 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ChecklistItem as Item } from '@/types'
 import ChecklistItemComponent from './ChecklistItem'
 
 interface Props {
   items: Item[]
   onToggle: (id: string) => void
+  highlightedId?: string | null
 }
 
-export default function Checklist({ items, onToggle }: Props) {
+export default function Checklist({ items, onToggle, highlightedId }: Props) {
   const [collapsedCategories, setCollapsedCategories] = useState<Record<string, boolean>>({})
+
+  useEffect(() => {
+    if (highlightedId) {
+      const target = items.find(i => i.id === highlightedId)
+      if (target && target.category) {
+        setCollapsedCategories(prev => {
+          if (prev[target.category!]) {
+            return { ...prev, [target.category!]: false }
+          }
+          return prev
+        })
+      }
+    }
+  }, [highlightedId, items])
 
   // Group items by category
   const grouped = items.reduce((acc, item) => {
@@ -50,7 +65,12 @@ export default function Checklist({ items, onToggle }: Props) {
             {/* Always show in print mode even if collapsed locally */}
             <div className={`grid grid-cols-1 md:grid-cols-2 gap-3 ${isCollapsed ? 'hidden print:grid' : 'print:grid'}`}>
               {catItems.map(item => (
-                <ChecklistItemComponent key={item.id} item={item} onToggle={onToggle} />
+                <ChecklistItemComponent 
+                  key={item.id} 
+                  item={item} 
+                  onToggle={onToggle}
+                  highlight={item.id === highlightedId}
+                />
               ))}
             </div>
           </section>

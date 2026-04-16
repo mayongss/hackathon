@@ -6,7 +6,7 @@ import Checklist from './Checklist'
 import AdminTips from './AdminTips'
 import PdfExport from './PdfExport'
 import ShareButton from './ShareButton'
-import ChatWidget from './ChatWidget'
+import ManualAddItem from './ManualAddItem'
 
 interface Props {
   initialResult: TripResult
@@ -14,6 +14,7 @@ interface Props {
 
 export default function ResultView({ initialResult }: Props) {
   const [result, setResult] = useState<TripResult>(initialResult)
+  const [highlightedId, setHighlightedId] = useState<string | null>(null)
 
   function handleToggleChecklist(id: string) {
     setResult(prev => ({
@@ -29,31 +30,61 @@ export default function ResultView({ initialResult }: Props) {
   return (
     <div className="max-w-4xl mx-auto my-4 md:my-8 pb-24 md:pb-8">
       <div id="result-content" className="space-y-8 bg-white p-4 md:p-10 rounded-2xl shadow-sm border border-gray-100 mb-6 relative">
-        <header className="flex flex-col md:flex-row md:items-end justify-between items-start gap-4 border-b border-gray-100 pb-6">
-          <div>
-            <div className="text-xs text-indigo-600 font-semibold uppercase tracking-widest mb-2">✈️ AI 맞춤 여행 가이드</div>
-            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">
-              {itinerary.map(l => `${l.country} · ${l.city}`).join(', ')} 여행 가이드
+        <header className="ticket-cutout p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between items-start gap-6 border-b-2 border-dashed border-gray-300 pb-8 mb-4">
+          <div className="flex-1 w-full">
+            <div className="flex items-center justify-between w-full mb-3">
+              <div className="text-sm text-sky-600 font-bold uppercase tracking-widest flex items-center gap-2 font-title">
+                <span>✈️ BOARDING PASS</span>
+                <span className="text-gray-300">|</span>
+                <span className="text-gray-500">THE LAZY PACKER</span>
+              </div>
+              <button 
+                onClick={() => window.location.href = '/'}
+                className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors print:hidden text-xs font-bold"
+              >
+                🏠 홈으로
+              </button>
+            </div>
+            
+            <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight font-title mb-4">
+              {itinerary.map(l => `${l.country} · ${l.city}`).join(', ')}
             </h1>
-            <div className="flex flex-wrap gap-2 mt-3">
+            
+            <div className="flex flex-wrap items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
               {itinerary.map((leg, i) => (
-                <span key={i} className="bg-indigo-50 text-indigo-700 text-xs font-medium px-3 py-1 rounded-full">
-                  🗾 {leg.country} · {leg.city} &nbsp;{leg.startDate} ~ {leg.endDate}
-                </span>
+                <div key={i} className="flex flex-col">
+                  <span className="text-[10px] text-slate-400 font-bold uppercase">DESTINATION</span>
+                  <span className="text-sm font-bold text-slate-700">{leg.country} {leg.city}</span>
+                </div>
               ))}
-              <span className="bg-indigo-50 text-indigo-700 text-xs font-medium px-3 py-1 rounded-full">
-                👤 {result.input.travelers}명
-              </span>
+              <div className="w-px h-8 bg-slate-200 mx-2 hidden md:block"></div>
+              <div className="flex flex-col">
+                <span className="text-[10px] text-slate-400 font-bold uppercase">PASSENGERS</span>
+                <span className="text-sm font-bold text-slate-700">{result.input.travelers}명</span>
+              </div>
               {result.input.theme && (
-                <span className="bg-indigo-50 text-indigo-700 text-xs font-medium px-3 py-1 rounded-full">
-                  🎯 {result.input.theme}
-                </span>
+                <>
+                  <div className="w-px h-8 bg-slate-200 mx-2 hidden md:block"></div>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase">CLASS</span>
+                    <span className="text-sm font-bold text-slate-700">{result.input.theme}</span>
+                  </div>
+                </>
               )}
             </div>
           </div>
-          <div className="hidden md:flex gap-2 print:hidden">
-            <PdfExport result={result} />
-            <ShareButton />
+          
+          <div className="flex flex-col items-end justify-center gap-4 border-t md:border-t-0 md:border-l border-dashed border-gray-300 pt-4 md:pt-0 md:pl-6 w-full md:w-auto">
+            {/* Fake Barcode */}
+            <div className="flex items-end gap-[2px] h-12 opacity-40">
+              {[...Array(24)].map((_, i) => (
+                <div key={i} className="bg-slate-800" style={{ width: `${Math.random() * 4 + 1}px`, height: `${Math.random() * 40 + 40}%` }}></div>
+              ))}
+            </div>
+            <div className="flex gap-2 print:hidden w-full md:w-auto mt-2">
+              <PdfExport result={result} />
+              <ShareButton />
+            </div>
           </div>
         </header>
 
@@ -65,20 +96,36 @@ export default function ResultView({ initialResult }: Props) {
         <section className="print:break-inside-avoid">
           <h2 className="text-lg font-bold text-[#1e1b4b] mb-4">맞춤형 짐 체크리스트</h2>
           <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
-            <Checklist items={result.checklist} onToggle={handleToggleChecklist} />
+            <Checklist 
+              items={result.checklist} 
+              onToggle={handleToggleChecklist} 
+              highlightedId={highlightedId}
+            />
           </div>
         </section>
 
         <section className="print:hidden">
-          <ChatWidget 
-            input={result.input}
-            onAddItem={(item) => {
-              setResult(prev => {
-                const newItem = { ...item, id: `chat-${Date.now()}`, checked: false }
-                return { ...prev, checklist: [...prev.checklist, newItem] }
-              })
-            }}
-          />
+          <h2 className="text-lg font-bold text-[#1e1b4b] mb-4">나만의 짐 추가하기</h2>
+          <div className="bg-[#f8f9fe] border border-indigo-100 rounded-xl p-5">
+            <ManualAddItem 
+              theme={result.input.theme}
+              onAddItem={(item) => {
+                const newId = `manual-${Date.now()}`
+                const newItem = { ...item, id: newId, checked: false }
+                
+                setResult(prev => ({ ...prev, checklist: [...prev.checklist, newItem] }))
+                setHighlightedId(newId)
+                
+                // DOM update 후 스크롤 이동
+                setTimeout(() => {
+                  document.getElementById(`checklist-item-${newId}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                }, 100)
+                
+                // 3초 후 하이라이트 해제
+                setTimeout(() => setHighlightedId(null), 3000)
+              }}
+            />
+          </div>
         </section>
       </div>
 

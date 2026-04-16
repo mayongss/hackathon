@@ -47,13 +47,17 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-[#6c47ff] via-[#4d28d4] to-[#2a0e8a] flex flex-col items-center justify-center p-4 md:p-8 relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-96 bg-white/5 backdrop-blur-3xl rounded-b-[100%] scale-150 transform -translate-y-1/2 -z-10" />
+    <main className="min-h-screen bg-gradient-to-br from-sky-400 via-sky-200 to-pink-200 flex flex-col items-center justify-center p-4 md:p-8 relative overflow-hidden font-sans">
+      
+      {/* CSS Animated Clouds */}
+      <div className="absolute top-[10%] left-[-20%] w-32 h-10 bg-white/70 rounded-full blur-sm cloud-1 z-0"></div>
+      <div className="absolute top-[30%] right-[-20%] w-48 h-16 bg-white/60 rounded-full blur-md cloud-2 z-0 scale-125"></div>
+      <div className="absolute top-[70%] left-[20%] w-64 h-20 bg-white/50 rounded-full blur-lg cloud-3 z-0 scale-150"></div>
 
       {error && (
-        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-red-500/90 backdrop-blur-sm text-white text-sm px-5 py-3 rounded-xl shadow-lg flex items-center gap-3">
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-red-100/90 backdrop-blur-sm border border-red-300 text-red-700 text-sm px-5 py-3 rounded-xl shadow-lg flex items-center gap-3">
           <span>{error}</span>
-          <button onClick={() => setError(null)} className="text-white/70 hover:text-white font-bold">✕</button>
+          <button onClick={() => setError(null)} className="text-red-700/70 hover:text-red-700 font-bold">✕</button>
         </div>
       )}
       

@@ -1,7 +1,55 @@
 @import "tailwindcss";
 
 body {
-  background: #f8faff;
+  background: #e0f2fe; /* sky border base */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/30 backdrop-blur-xl border border-white/40 shadow-xl;
+  }
+  .ticket-cutout {
+    position: relative;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+  .ticket-cutout::before, .ticket-cutout::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #f0f9ff;
+    z-index: 10;
+  }
+  .ticket-cutout::before { left: -12px; }
+  .ticket-cutout::after { right: -12px; }
+  
+  .cloud-1 {
+    animation: drift 40s linear infinite;
+  }
+  .cloud-2 {
+    animation: drift 60s linear infinite reverse;
+  }
+  .cloud-3 {
+    animation: drift 50s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes drift {
+  from { transform: translateX(-10vw); }
+  to { transform: translateX(110vw); }
+}
+
+@keyframes slidePack {
+  0% { transform: scale(1) translateY(0); opacity: 1; height: auto; }
+  100% { transform: scale(0.8) translateY(20px); opacity: 0; min-height: 0; height: 0; padding-top: 0; padding-bottom: 0px; margin-bottom: 0px; overflow: hidden; border: none; }
+}
+
+.item-packed {
+  animation: slidePack 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }

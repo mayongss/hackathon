@@ -1,12 +1,22 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Noto_Sans_KR, Jua } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const notoSans = Noto_Sans_KR({ 
+  subsets: ['latin'],
+  weight: ['400', '500', '700', '900'],
+  variable: '--font-noto-sans'
+})
+
+const jua = Jua({ 
+  weight: '400', 
+  subsets: ['latin'],
+  variable: '--font-jua'
+})
 
 export const metadata: Metadata = {
-  title: 'TravelAI — AI 여행 가이드',
-  description: '목적지와 일정을 입력하면 AI가 맞춤형 짐 체크리스트와 꿀팁을 만들어드립니다.',
+  title: '게으른 여행자 | The Lazy Packer',
+  description: '신나는 여행만 생각하세요. 귀찮은 짐싸기는 AI가 완벽하게 끝낼게요.',
 }
 
 export default function RootLayout({
@@ -16,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={inter.className}>{children}</body>
+      <body className={`${notoSans.className} ${notoSans.variable} ${jua.variable} bg-[#f0f9ff]`}>{children}</body>
     </html>
   )
 }
