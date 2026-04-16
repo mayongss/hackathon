@@ -10,8 +10,11 @@ interface Props {
   highlightedId?: string | null
 }
 
+type FilterType = 'all' | 'unchecked' | 'checked'
+
 export default function Checklist({ items, onToggle, highlightedId }: Props) {
   const [collapsedCategories, setCollapsedCategories] = useState<Record<string, boolean>>({})
+  const [filter, setFilter] = useState<FilterType>('all')
 
   useEffect(() => {
     if (highlightedId) {
@@ -27,13 +30,24 @@ export default function Checklist({ items, onToggle, highlightedId }: Props) {
     }
   }, [highlightedId, items])
 
-  // Group items by category
+  // Group items by category (with Filter applied)
   const grouped = items.reduce((acc, item) => {
+    if (filter === 'unchecked' && item.checked) return acc
+    if (filter === 'checked' && !item.checked) return acc
+
     const category = item.category || '기타'
     if (!acc[category]) acc[category] = []
     acc[category].push(item)
     return acc
   }, {} as Record<string, Item[]>)
+
+  // Sort items within each category: unchecked first, checked at the bottom
+  Object.values(grouped).forEach(catItems => {
+    catItems.sort((a, b) => {
+      if (a.checked === b.checked) return 0
+      return a.checked ? 1 : -1
+    })
+  })
 
   const toggleCategory = (category: string) => {
     setCollapsedCategories(prev => ({
@@ -44,6 +58,28 @@ export default function Checklist({ items, onToggle, highlightedId }: Props) {
 
   return (
     <div className="space-y-6">
+      <div className="flex justify-end mb-4 print:hidden">
+        <div className="bg-slate-200/60 p-1 rounded-xl flex text-sm font-bold shadow-inner">
+          <button 
+            onClick={() => setFilter('all')} 
+            className={`px-4 py-1.5 rounded-lg transition-all ${filter === 'all' ? 'bg-white shadow-sm text-sky-600' : 'text-slate-500 hover:text-slate-800'}`}
+          >
+            전체 보기
+          </button>
+          <button 
+            onClick={() => setFilter('unchecked')} 
+            className={`px-4 py-1.5 rounded-lg transition-all ${filter === 'unchecked' ? 'bg-white shadow-sm text-sky-600' : 'text-slate-500 hover:text-slate-800'}`}
+          >
+            챙길 짐
+          </button>
+          <button 
+            onClick={() => setFilter('checked')} 
+            className={`px-4 py-1.5 rounded-lg transition-all ${filter === 'checked' ? 'bg-white shadow-sm text-sky-600' : 'text-slate-500 hover:text-slate-800'}`}
+          >
+            다 싼 짐
+          </button>
+        </div>
+      </div>
       {Object.entries(grouped).map(([category, catItems]) => {
         const isCollapsed = collapsedCategories[category] || false
 

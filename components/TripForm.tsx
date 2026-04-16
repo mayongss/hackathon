@@ -132,6 +132,7 @@ export default function TripForm({ onSubmit, isLoading }: Props) {
                     <input
                       type="date"
                       name="endDate"
+                      min={leg.startDate}
                       value={leg.endDate}
                       onChange={(e) => handleItineraryChange(index, e)}
                       required
