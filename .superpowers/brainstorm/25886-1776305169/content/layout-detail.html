@@ -1,0 +1,142 @@
+<h2>B 스타일 — 세부 레이아웃 확인</h2>
+<p class="subtitle">두 페이지 모두 인디고/퍼플 그라디언트로 통일합니다. 각 레이아웃을 클릭해 선택해주세요.</p>
+
+<div class="split">
+
+  <!-- Landing Page Mockup -->
+  <div class="mockup">
+    <div class="mockup-header">홈 (입력 페이지)</div>
+    <div class="mockup-body" style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:16px">
+
+      <!-- Header -->
+      <div style="text-align:center;margin-bottom:4px">
+        <div style="font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.5px">✈️ TravelAI</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);margin-top:2px">AI가 만드는 나만의 여행 가이드</div>
+      </div>
+
+      <!-- Glassmorphism Card -->
+      <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:24px;width:100%;backdrop-filter:blur(12px)">
+        <!-- Itinerary row -->
+        <div style="margin-bottom:12px">
+          <div style="font-size:10px;color:rgba(255,255,255,0.6);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">방문 여정</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:8px">
+              <div style="font-size:9px;color:rgba(255,255,255,0.5);margin-bottom:2px">국가</div>
+              <div style="font-size:12px;color:#fff">일본</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:8px">
+              <div style="font-size:9px;color:rgba(255,255,255,0.5);margin-bottom:2px">도시</div>
+              <div style="font-size:12px;color:#fff">도쿄</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px">
+            <div style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:8px">
+              <div style="font-size:9px;color:rgba(255,255,255,0.5);margin-bottom:2px">도착일</div>
+              <div style="font-size:11px;color:#fff">2026-05-01</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:8px">
+              <div style="font-size:9px;color:rgba(255,255,255,0.5);margin-bottom:2px">출발일</div>
+              <div style="font-size:11px;color:#fff">2026-05-07</div>
+            </div>
+          </div>
+          <div style="text-align:right;margin-top:6px">
+            <span style="font-size:10px;color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.1);padding:3px 10px;border-radius:20px;cursor:pointer">+ 여정 추가</span>
+          </div>
+        </div>
+
+        <!-- Travelers -->
+        <div style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:8px;margin-bottom:10px">
+          <div style="font-size:9px;color:rgba(255,255,255,0.5);margin-bottom:2px">여행 인원</div>
+          <div style="font-size:12px;color:#fff">2명</div>
+        </div>
+
+        <!-- Theme -->
+        <div style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:8px;margin-bottom:14px">
+          <div style="font-size:9px;color:rgba(255,255,255,0.5);margin-bottom:2px">여행 테마 / 키워드</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.8)">골프, 온천, 맛집 탐방...</div>
+        </div>
+
+        <!-- CTA Button -->
+        <div style="background:#fff;color:#6c47ff;border-radius:12px;padding:12px;text-align:center;font-size:12px;font-weight:700;box-shadow:0 4px 12px rgba(0,0,0,0.2)">
+          ✨ 나만의 맞춤 가이드 만들기
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Result Page Mockup -->
+  <div class="mockup">
+    <div class="mockup-header">결과 페이지</div>
+    <div class="mockup-body" style="background:#f8faff;min-height:400px">
+
+      <!-- Hero Header -->
+      <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:20px 16px 28px">
+        <div style="font-size:10px;color:rgba(255,255,255,0.7);margin-bottom:4px">✈️ AI 맞춤 여행 가이드</div>
+        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:8px">일본 도쿄 여행 가이드</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span style="background:rgba(255,255,255,0.2);color:#fff;padding:3px 10px;border-radius:20px;font-size:10px">🗾 일본 · 도쿄</span>
+          <span style="background:rgba(255,255,255,0.2);color:#fff;padding:3px 10px;border-radius:20px;font-size:10px">📅 5월 1일 ~ 7일</span>
+          <span style="background:rgba(255,255,255,0.2);color:#fff;padding:3px 10px;border-radius:20px;font-size:10px">👤 2명</span>
+        </div>
+      </div>
+
+      <!-- White content area -->
+      <div style="background:#fff;margin:-12px 12px 0;border-radius:16px 16px 0 0;padding:16px;box-shadow:0 -2px 12px rgba(102,126,234,0.08)">
+        <!-- Admin Tips section -->
+        <div style="font-size:12px;font-weight:700;color:#1e1b4b;margin-bottom:10px">여행 전 필수 팁</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+          <div style="background:#eef2ff;border-radius:10px;padding:10px">
+            <div style="font-size:10px;font-weight:700;color:#4338ca;margin-bottom:4px">🛂 행정 & 서류</div>
+            <div style="font-size:9px;color:#4338ca;opacity:0.8">무비자 90일 체류</div>
+          </div>
+          <div style="background:#f0fdf4;border-radius:10px;padding:10px">
+            <div style="font-size:10px;font-weight:700;color:#16a34a;margin-bottom:4px">💳 금융 & 결제</div>
+            <div style="font-size:9px;color:#16a34a;opacity:0.8">트래블카드 권장</div>
+          </div>
+        </div>
+
+        <!-- Checklist section -->
+        <div style="font-size:12px;font-weight:700;color:#1e1b4b;margin-bottom:8px">맞춤형 짐 체크리스트</div>
+        <div style="space-y:4px">
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:#f5f3ff;border-radius:8px;margin-bottom:4px">
+            <div style="width:14px;height:14px;border-radius:4px;background:#7c3aed;display:flex;align-items:center;justify-content:center">
+              <div style="color:#fff;font-size:8px">✓</div>
+            </div>
+            <div style="font-size:11px;color:#1e1b4b;text-decoration:line-through;opacity:0.5">여권</div>
+            <span style="margin-left:auto;font-size:9px;background:#7c3aed;color:#fff;padding:1px 6px;border-radius:20px">필수</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:#fafafa;border:1px solid #f0f0f0;border-radius:8px;margin-bottom:4px">
+            <div style="width:14px;height:14px;border-radius:4px;border:1.5px solid #d1d5db"></div>
+            <div style="font-size:11px;color:#1e1b4b">여행자 보험</div>
+            <span style="margin-left:auto;font-size:9px;background:#f3f4f6;color:#6b7280;padding:1px 6px;border-radius:20px">추천</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:#fafafa;border:1px solid #f0f0f0;border-radius:8px">
+            <div style="width:14px;height:14px;border-radius:4px;border:1.5px solid #d1d5db"></div>
+            <div style="font-size:11px;color:#1e1b4b">변환 플러그 (110V)</div>
+            <span style="margin-left:auto;font-size:9px;background:#fef3c7;color:#b45309;padding:1px 6px;border-radius:20px">필수</span>
+          </div>
+        </div>
+
+        <!-- Bottom actions -->
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <div style="flex:1;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:10px;padding:8px;text-align:center;font-size:10px;font-weight:600">PDF 저장</div>
+          <div style="flex:1;background:#fff;border:1.5px solid #e0e7ff;color:#6c47ff;border-radius:10px;padding:8px;text-align:center;font-size:10px;font-weight:600">링크 공유</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;background:#eef2ff;border-radius:12px;padding:16px">
+  <div style="font-size:13px;font-weight:600;color:#4338ca;margin-bottom:8px">구현 범위</div>
+  <ul style="font-size:12px;color:#3730a3;margin:0;padding-left:18px;line-height:1.8">
+    <li>layout.tsx — Inter 폰트 + 글로벌 배경</li>
+    <li>TripForm — 글래스모피즘 카드 스타일</li>
+    <li>ResultView — 그라디언트 헤더 + 흰 카드 바디</li>
+    <li>AdminTips — 인디고 계열 배지 색상</li>
+    <li>Checklist/Item — 퍼플 체크박스 + 배지</li>
+  </ul>
+</div>
