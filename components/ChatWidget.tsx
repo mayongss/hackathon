@@ -36,11 +36,11 @@ export default function ChatWidget({ input, onAddItem }: Props) {
       setMessages(prev => [...prev, { role: 'assistant', content: data.text }])
 
       if (data.suggestedItem) {
-        // Automatically add the item the AI suggested
         onAddItem({
+          category: data.suggestedItem.category || '🤖 AI 추천',
           type: data.suggestedItem.type || 'recommended',
           item: data.suggestedItem.item,
-          reason: '🤖 AI 채팅 추천 아이템',
+          reason: 'AI 채팅 추가 아이템',
         })
       }
     } catch (e) {
