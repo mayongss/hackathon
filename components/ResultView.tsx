@@ -50,17 +50,29 @@ export default function ResultView({ initialResult }: Props) {
               {itinerary.map(l => `${l.country} · ${l.city}`).join(', ')}
             </h1>
             
-            <div className="flex flex-wrap items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
-              {itinerary.map((leg, i) => (
-                <div key={i} className="flex flex-col whitespace-nowrap">
-                  <span className="text-[10px] text-slate-400 font-bold uppercase">DESTINATION</span>
-                  <span className="text-sm font-bold text-slate-700">{leg.country} {leg.city}</span>
-                </div>
-              ))}
+            <div className="flex flex-col gap-3 bg-slate-50 p-3 md:p-4 rounded-xl border border-slate-100 w-full overflow-hidden">
+              <div className="flex flex-wrap items-stretch gap-3">
+                {itinerary.map((leg, i) => (
+                  <div key={i} className="flex flex-col bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex-1 min-w-[220px]">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase mb-1.5 tracking-wider">
+                      {itinerary.length > 1 ? `FLIGHT ${i + 1}` : 'DESTINATION'}
+                    </span>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <span className="text-sm md:text-base font-bold text-slate-800 whitespace-nowrap">
+                        {leg.country} {leg.city}
+                      </span>
+                      <span className="text-xs font-bold text-sky-700 bg-sky-100/70 px-2 py-1 rounded-md text-center whitespace-nowrap">
+                        {leg.startDate.replace(/-/g, '.')} ~ {leg.endDate.replace(/-/g, '.')}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
               {result.input.theme && (
-                <div className="flex flex-col whitespace-nowrap">
-                  <span className="text-[10px] text-slate-400 font-bold uppercase">CLASS</span>
-                  <span className="text-sm font-bold text-slate-700">{result.input.theme}</span>
+                <div className="flex items-center gap-2 mt-1 ml-1 px-2 border-l-2 border-slate-300">
+                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">CLASS</span>
+                  <span className="text-sm font-bold text-slate-800">{result.input.theme}</span>
                 </div>
               )}
             </div>
