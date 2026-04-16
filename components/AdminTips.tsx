@@ -5,59 +5,22 @@ interface Props {
 }
 
 export default function AdminTips({ tips }: Props) {
+  // Defensive fallback
+  const tipArray = Array.isArray(tips) ? tips : Object.values(tips).flat()
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div className="bg-indigo-50 rounded-xl p-5 border border-indigo-100">
-        <h4 className="flex items-center text-indigo-700 font-bold mb-3">
-          <span className="text-xl mr-2">🛂</span> 행정 &amp; 서류
-        </h4>
-        <ul className="space-y-2">
-          {tips.administrative.map((tip, i) => (
-            <li key={i} className="text-sm border-b border-indigo-100/60 pb-2 last:border-0 last:pb-0 text-gray-700">
-              {tip}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="bg-emerald-50 rounded-xl p-5 border border-emerald-100">
-        <h4 className="flex items-center text-emerald-700 font-bold mb-3">
-          <span className="text-xl mr-2">💳</span> 금융 &amp; 결제
-        </h4>
-        <ul className="space-y-2">
-          {tips.finance.map((tip, i) => (
-            <li key={i} className="text-sm border-b border-emerald-100/60 pb-2 last:border-0 last:pb-0 text-gray-700">
-              {tip}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="bg-purple-50 rounded-xl p-5 border border-purple-100">
-        <h4 className="flex items-center text-purple-700 font-bold mb-3">
-          <span className="text-xl mr-2">📱</span> 디지털 &amp; 앱
-        </h4>
-        <ul className="space-y-2">
-          {tips.digital.map((tip, i) => (
-            <li key={i} className="text-sm border-b border-purple-100/60 pb-2 last:border-0 last:pb-0 text-gray-700">
-              {tip}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="bg-orange-50 rounded-xl p-5 border border-orange-100">
-        <h4 className="flex items-center text-orange-700 font-bold mb-3">
-          <span className="text-xl mr-2">⚠️</span> 현지 주의사항
-        </h4>
-        <ul className="space-y-2">
-          {tips.precautions.map((tip, i) => (
-            <li key={i} className="text-sm border-b border-orange-100/60 pb-2 last:border-0 last:pb-0 text-gray-700">
-              {tip}
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div className="bg-indigo-50 rounded-xl p-5 border border-indigo-100">
+      <h4 className="flex items-center text-indigo-700 font-bold mb-4 text-lg">
+        <span className="mr-2">💡</span> 알아두면 유용한 Top 5 필수 팁
+      </h4>
+      <ul className="space-y-3">
+        {tipArray.slice(0, 5).map((tip, i) => (
+          <li key={i} className="flex gap-3 text-[15px] border-b border-indigo-100/60 pb-3 last:border-0 last:pb-0 text-gray-800 leading-relaxed">
+            <span className="text-indigo-500 font-bold shrink-0">{i + 1}.</span>
+            <span>{tip}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

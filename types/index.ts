@@ -20,12 +20,7 @@ export interface ChecklistItem {
   checked: boolean
 }
 
-export interface AdminTips {
-  administrative: string[]
-  finance: string[]
-  digital: string[]
-  precautions: string[]
-}
+export type AdminTips = string[]
 
 export interface TripResult {
   input: TripInput
