@@ -22,8 +22,14 @@ export default function Home() {
       })
 
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}))
-        const errorMsg = data.details ? `${data.error} (${data.details})` : (data.error || 'AI 생성 중 오류가 발생했습니다.')
+        const text = await res.text().catch(() => '');
+        let errorMsg = 'AI 생성 중 오류가 발생했습니다.';
+        try {
+          const data = JSON.parse(text);
+          errorMsg = data.details ? `${data.error} (${data.details})` : (data.error || errorMsg);
+        } catch {
+          errorMsg = `서버 응답 오류 (JSON 파싱 실패): ${res.status} ${text.substring(0, 100)}`;
+        }
         setError(errorMsg)
         return
       }
