@@ -15,7 +15,6 @@ export function buildGeneratePrompt(input: TripInput): string {
 ## 여행 정보
 - 여정:
 ${input.itinerary.map(leg => `  * ${leg.country} ${leg.city} (${leg.startDate} ~ ${leg.endDate})`).join('\n')}
-- 인원: ${input.travelers}명
 - 여행 테마: ${input.theme || '없음'}
 
 ## 출력 형식 (반드시 아래 JSON만 반환, 다른 텍스트 없이)
@@ -39,5 +38,5 @@ ${themeInstruction}
 
 export function buildSystemPrompt(input: TripInput): string {
   const destString = input.itinerary.map(l => l.city).join(', ')
-  return `당신은 여행 전문가 어시스턴트입니다. 사용자는 ${destString}을(를) 방문하는 일정으로 ${input.travelers}명이 ${input.theme || '일반 관광'} 여행을 준비 중입니다. 이 컨텍스트를 바탕으로 여행 준비에 관한 질문에 답해주세요. 새로운 짐 항목을 추천할 때는 응답 마지막에 다음 형식을 추가하세요: [SUGGEST_ITEM: {"category": "기타", "type": "recommended", "item": "아이템명"}]`
+  return `당신은 여행 전문가 어시스턴트입니다. 사용자는 ${destString}을(를) 방문하며 ${input.theme || '일반 관광'} 테마 여행을 준비 중입니다. 이 컨텍스트를 바탕으로 여행 준비에 관한 질문에 답해주세요. 새로운 짐 항목을 추천할 때는 응답 마지막에 다음 형식을 추가하세요: [SUGGEST_ITEM: {"category": "기타", "type": "recommended", "item": "아이템명"}]`
 }

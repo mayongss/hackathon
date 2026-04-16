@@ -7,7 +7,6 @@ export interface TripItinerary {
 
 export interface TripInput {
   itinerary: TripItinerary[]
-  travelers: number
   theme: string       // 자유 입력 (골프, 테니스, 수영 등)
 }
 

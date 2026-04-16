@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   try {
     const input: TripInput = await req.json()
 
-    if (!input.itinerary || input.itinerary.length === 0 || !input.travelers) {
+    if (!input.itinerary || input.itinerary.length === 0) {
       return NextResponse.json({ error: '필수 항목을 모두 입력해주세요.' }, { status: 400 })
     }
 

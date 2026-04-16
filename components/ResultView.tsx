@@ -57,19 +57,11 @@ export default function ResultView({ initialResult }: Props) {
                   <span className="text-sm font-bold text-slate-700">{leg.country} {leg.city}</span>
                 </div>
               ))}
-              <div className="w-px h-8 bg-slate-200 mx-2 hidden md:block"></div>
-              <div className="flex flex-col">
-                <span className="text-[10px] text-slate-400 font-bold uppercase">PASSENGERS</span>
-                <span className="text-sm font-bold text-slate-700">{result.input.travelers}명</span>
-              </div>
               {result.input.theme && (
-                <>
-                  <div className="w-px h-8 bg-slate-200 mx-2 hidden md:block"></div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-slate-400 font-bold uppercase">CLASS</span>
-                    <span className="text-sm font-bold text-slate-700">{result.input.theme}</span>
-                  </div>
-                </>
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-slate-400 font-bold uppercase">CLASS</span>
+                  <span className="text-sm font-bold text-slate-700">{result.input.theme}</span>
+                </div>
               )}
             </div>
           </div>

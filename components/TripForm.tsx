@@ -14,7 +14,6 @@ import CityAutocomplete from './CityAutocomplete'
 export default function TripForm({ onSubmit, isLoading }: Props) {
   const [form, setForm] = useState<TripInput>({
     itinerary: [{ country: '', city: '', startDate: '', endDate: '' }],
-    travelers: 1,
     theme: '',
   })
 
@@ -143,21 +142,6 @@ export default function TripForm({ onSubmit, isLoading }: Props) {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* 인원 */}
-        <div>
-          <label className={labelClass}>누구와 함께 가나요? (인원)</label>
-          <input
-            name="travelers"
-            type="number"
-            min={1}
-            max={20}
-            value={form.travelers}
-            onChange={handleChange}
-            required
-            className={inputClass}
-          />
         </div>
 
         {/* 테마 */}
