@@ -45,7 +45,12 @@ export default function ResultView({ initialResult }: Props) {
             </div>
             
             <h1 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight font-title mb-4 break-keep">
-              {itinerary.map(l => `${l.country} · ${l.city}`).join(', ')}
+              {itinerary.map((l, i) => (
+                <span key={i} className="block md:inline mt-1 md:mt-0">
+                  {l.country} · {l.city}
+                  {i < itinerary.length - 1 && <span className="hidden md:inline">, </span>}
+                </span>
+              ))}
             </h1>
             
             <div className="flex flex-col gap-3 bg-slate-50 p-3 md:p-4 rounded-xl border border-slate-100 w-full overflow-hidden">
