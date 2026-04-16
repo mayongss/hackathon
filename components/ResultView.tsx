@@ -35,8 +35,6 @@ export default function ResultView({ initialResult }: Props) {
             <div className="flex items-center justify-between w-full mb-3">
               <div className="text-sm text-sky-600 font-bold uppercase tracking-widest flex items-center gap-2 font-title">
                 <span>✈️ BOARDING PASS</span>
-                <span className="text-gray-300">|</span>
-                <span className="text-gray-500">THE LAZY PACKER</span>
               </div>
               <button 
                 onClick={() => window.location.href = '/'}
